@@ -1,5 +1,6 @@
-#!/bin/bash -x 
+#!/bin/bash
 echo "Welcome to Snake And Ladder simulation"
+declare -A diceAndPosition
 
 #CONSTANTS
 PLAYER_START_POSITION=0
@@ -10,6 +11,7 @@ SNAKE=3
 
 #VARIABLE
 playerCurrentPosition=$PLAYER_START_POSITION
+dice=0
 
 #Checking the options for player's next move
 function playerNextMove()
@@ -55,12 +57,20 @@ function snakeMoves()
 	fi
 }
 
+#Function to store the dice count and the player's position at that time
+function diceAndPosition()
+{
+	((dice++))
+	diceAndPosition[dice-$dice]="$playerCurrentPosition"
+}
+
 #Function to play till the player wins
 function play()
 {
 	while (( $playerCurrentPosition < $PLAYER_WINNING_POSITION ))
 	do
 		playerNextMove
+		diceAndPosition
 	done
 }
 

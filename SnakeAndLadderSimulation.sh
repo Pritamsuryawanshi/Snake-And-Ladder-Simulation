@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 echo "Welcome to Snake And Ladder simulation"
 
 #CONSTANTS
@@ -14,21 +14,18 @@ playerCurrentPosition=$PLAYER_START_POSITION
 #Checking the options for player's next move
 function playerNextMove()
 {
-	while (( $playerCurrentPosition < $PLAYER_WINNING_POSITION ))
-	do
-		randomValues
-		case $playerMove in
-			$NO_PLAY)
-				playerCurrentPosition=$playerCurrentPosition
-				;;
-			$LADDER)
-				ladderMoves
-				;;
-			$SNAKE)
-				snakeMoves
-				;;
-		esac
-	done
+	randomValues
+	case $playerMove in
+		$NO_PLAY)
+			playerCurrentPosition=$playerCurrentPosition
+			;;
+		$LADDER)
+			ladderMoves
+			;;
+		$SNAKE)
+			snakeMoves
+			;;
+	esac
 }
 
 #Function to Generate random values
@@ -54,6 +51,14 @@ function snakeMoves()
 	fi
 }
 
-#MAIN
-playerNextMove
+function play()
+{
+	while (( $playerCurrentPosition < $PLAYER_WINNING_POSITION ))
+	do
+		playerNextMove
+	done
+}
 
+
+#MAIN
+play

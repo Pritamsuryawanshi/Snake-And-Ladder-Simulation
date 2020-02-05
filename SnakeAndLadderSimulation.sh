@@ -1,31 +1,59 @@
-#!/bin/bash -x
+#!/bin/bash
 echo "Welcome to Snake And Ladder simulation"
 
-#CONSTANT
+#CONSTANTS
 PLAYER_START_POSITION=0
+PLAYER_WINNING_POSITION=100
 NO_PLAY=1
 LADDER=2
 SNAKE=3
 
 #VARIABLE
-dieValue=$((RANDOM%6+1))
-playerMove=$((RANDOM%3+1))
 playerCurrentPosition=$PLAYER_START_POSITION
 
-	#Checking the options for player's next move
+#Checking the options for player's next move
 function playerNextMove()
 {
-	case $playerMove in
-		$NO_PLAY)
-			playerCurrentPosition=$playerCurrentPosition
-			;;
-		$LADDER)
-			playerCurrentPosition=$(( playerCurrentPosition + dieValue ))
-			;;
-		$SNAKE)
-			playerCurrentPosition=$(( playerCurrentPosition - dieValue ))
-			;;
-	esac
+	while (( $playerCurrentPosition < $PLAYER_WINNING_POSITION ))
+	do
+		randomValues
+		case $playerMove in
+			$NO_PLAY)
+				playerCurrentPosition=$playerCurrentPosition
+				;;
+			$LADDER)
+				ladderMoves
+				;;
+			$SNAKE)
+				snakeMoves
+				;;
+		esac
+	done
 }
 
+#Function to Generate random values
+function randomValues()
+{
+	playerMove=$((RANDOM%3+1))
+	dieValue=$((RANDOM%6+1))
+}
+
+#Function to perform the ladder's operation
+function ladderMoves()
+{
+	playerCurrentPosition=$(( $playerCurrentPosition + $dieValue ))
+}
+
+#Function to perform the snake's operation
+function snakeMoves()
+{
+	playerCurrentPosition=$(( $playerCurrentPosition - $dieValue ))
+	if (( $playerCurrentPosition < 0))
+	then
+		playerCurrentPosition=$PLAYER_START_POSITION
+	fi
+}
+
+#MAIN
 playerNextMove
+

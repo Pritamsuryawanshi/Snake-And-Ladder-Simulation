@@ -16,15 +16,15 @@ playerCurrentPosition=$PLAYER_START_POSITION
 function playerNextMove()
 {
 	case $playerMove in
-			$NO_PLAY)
-					playerCurrentPosition=$playerCurrentPosition
-					;;
-			$LADDER)
-					playerCurrentPosition=$(( playerCurrentPosition + dieValue ))
-					;;
-			$SNAKE)
-					playerCurrentPosition=$(( playerCurrentPosition - dieValue ))
-					;;
+		$NO_PLAY)
+			playerCurrentPosition=$playerCurrentPosition
+			;;
+		$LADDER)
+			playerCurrentPosition=$(( playerCurrentPosition + dieValue ))
+			;;
+		$SNAKE)
+			playerCurrentPosition=$(( playerCurrentPosition - dieValue ))
+			;;
 	esac
 }
 

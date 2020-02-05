@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash -x 
 echo "Welcome to Snake And Ladder simulation"
 
 #CONSTANTS
@@ -39,7 +39,7 @@ function randomValues()
 function ladderMoves()
 {
 	playerCurrentPosition=$(( $playerCurrentPosition + $dieValue ))
-	if (( $playerCurrentPosition > 100))
+	if (( $playerCurrentPosition > $PLAYER_WINNING_POSITION))
 	then
 		playerCurrentPosition=$(($playerCurrentPosition - $dieValue))
 	fi
@@ -49,7 +49,7 @@ function ladderMoves()
 function snakeMoves()
 {
 	playerCurrentPosition=$(( $playerCurrentPosition - $dieValue ))
-	if (( $playerCurrentPosition < 0))
+	if (( $playerCurrentPosition < $PLAYER_START_POSITION))
 	then
 		playerCurrentPosition=$PLAYER_START_POSITION
 	fi
